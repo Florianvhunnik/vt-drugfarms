@@ -1,89 +1,96 @@
 -- local variables
-local propData, polyZones, blips = {}, {}, {}
+local propData, polyZones, blips, targets = {}, {}, {}, {}
 local activeZone, drugFarm = nil, nil
 local interactActive = false
 
 -- event handlers
 AddEventHandler('onResourceStop', function(resource)
     if resource == GetCurrentResourceName() then
-        -- create a pcall function to catch any errors
-        local success, result = pcall(function()
-            DeleteProps(); RemoveBlips() -- remove props and blips
-        end)
-
-        -- check if the removal was successful
-        if success then
-            DebugHandler('success', 'All props and blips have been removed successfully.')
-        else
-            DebugHandler('error', 'An error occurred while removing props and blips: ' .. result)
-        end
-
-        -- remove all polyzones
-        for k, v in pairs(polyZones) do 
-            exports.ox_target:removeZone(k)
-         end
-
-        -- remove all targets for each prop type
-        for k, v in pairs(Config.drugFarms) do
-            exports.ox_target:removeModel(v.target.propType)
-        end
+        Setup("stop")
     end
 end)
 
 -- threads
 CreateThread(function()
-    -- setup some things
-    Setup()
+    Setup("start")
 end)
 
 -- functions
-Setup = function()
-    DebugHandler('info', 'Set Config.debug = false to disable debug messages.')
-    -- create a pcall function to catch any errors
+Setup = function(action)
     local success, result = pcall(function()
-        -- loop through all drug types
-        for k, v in pairs(Config.drugFarms) do
-            -- create targets
-            exports.ox_target:addModel(v.target.propType, {
-                {
-                    icon = v.target.icon,
-                    label = v.target.label,
-                    distance = v.target.distance,
-                    canInteract = interactActive,
-                    onSelect = function(data)
-                        PickupProp(data)
-                    end
-                },
-            })
+        if action == "stop" then
+            -- delete all props and remove all blips
+            DeleteProps(); RemoveBlips()
 
-            -- create blips
-            if v.blip.enabled then
-                local center = CalculateCentroid(v.zone)
-                CreateBlip(k, center, v.blip.sprite, v.blip.color, v.blip.scale, v.blip.label)
+            -- remove all polyzones
+            for k, v in pairs(polyZones) do
+                exports.ox_target:removeZone(k)
             end
 
-            -- create polyzones
-            polyZones[k] = lib.zones.poly({
-                points = v.zone,
-                thickness = 2,
-                debug = Config.debugMode,
-                onEnter = function(self)
-                    OnEnter(self, k)
-                end,
-                onExit = function(self)
-                    DebugHandler('info', 'Exited drugs zone: ^2' .. k)
-                    -- check if the active zone is the same as the current zone
-                    DeleteProps(); activeZone = nil                 
+            -- remove all targets for each prop type
+            for k, v in pairs(Config.drugFarms) do
+                exports.ox_target:removeModel(v.target.propType)
+            end
+
+            -- clear the tables
+            propData, polyZones, blips, targets = {}, {}, {}, {}
+        elseif action == "restart" then
+            -- stop and start the resource
+            Setup("stop")
+            DebugHandler('info', 'Restarting...');
+            Wait(1000); Setup("start")
+        elseif action == "start" then
+            -- loop through all drug types
+            for k, v in pairs(Config.drugFarms) do
+                -- add the target for the prop type
+                if not targets[v.target.propType] then
+                    exports.ox_target:addModel(v.target.propType, {
+                        {
+                            icon = v.target.icon,
+                            label = v.target.label,
+                            distance = v.target.distance,
+                            canInteract = interactActive,
+                            onSelect = function(data)
+                                PickupProp(data)
+                            end
+                        },
+                    }); targets[v.target.propType] = true
                 end
-            })
+
+                -- create the blip if enabled, then calculate the coords
+                if v.blip.enabled then
+                    local center = CalculateCentroid(v.zone)
+                    CreateBlip(k, center, v.blip.sprite, v.blip.color, v.blip.scale, v.blip.label)
+                end
+
+                -- create the polyzone
+                polyZones[k] = lib.zones.poly({
+                    points = v.zone,
+                    thickness = 2,
+                    debug = Config.debugMode,
+                    onEnter = function(self)
+                        OnEnter(self, k)
+                    end,
+                    onExit = function(self)
+                        DebugHandler('info', 'Exited drugs zone: ^2' .. k)
+                        DeleteProps(); activeZone = nil
+                    end
+                })
+            end
         end
     end)
 
-    -- check if the loop ended successfully with no errors
     if success then
-        DebugHandler('success', 'All targets, blips and polyzones have been created successfully.')
+        if success then
+                message = (action == "start" and "Started") or 
+                (action == "stop" and "Stopped") or 
+                (action == "restart" and "Restarted") 
+                DebugHandler('success', message .. " resource successfully.")
+        else
+            DebugHandler('error', 'Error during action: ' .. action .. ' Error: ' .. result)
+        end        
     else
-        DebugHandler('error', 'An error occurred while creating targets, blips and polyzones: \n' .. result)
+        DebugHandler('error', 'Error during action: ' .. action .. ' Error: ' .. result)
     end
 end
 

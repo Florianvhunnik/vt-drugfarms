@@ -254,18 +254,8 @@ PickupProp = function(data)
             propData[prop] = nil        -- remove the prop from the table
             ESX.Game.DeleteObject(prop) -- delete the prop
 
-            -- spawn new props if the limit is not reached
-            local drugFarm = nil
-            for k, v in pairs(Config.drugFarms) do
-                if v.target.propType == propType then
-                    drugFarm = v
-                    break
-                end
-            end
-
-            if drugFarm then
-                SpawnProp(propType)
-            end
+            -- spawn a new prop
+            SpawnProp(propType)
         end
     end
 

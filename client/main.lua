@@ -174,21 +174,28 @@ SpawnProp = function(propType)
 
         -- check if the coords are not nil
         if coords then
-            -- spawn, freeze and place the prop on the ground
-            ESX.Game.SpawnLocalObject(propType, coords, function(object)
-                PlaceObjectOnGroundProperly(object)
-                FreezeEntityPosition(object, true)
-                propData[object] = propType
+            -- create a pcall function to catch any errors
+            local success, result = pcall(function()
+                -- spawn, freeze and place the prop on the ground
+                ESX.Game.SpawnLocalObject(propType, coords, function(object)
+                    PlaceObjectOnGroundProperly(object)
+                    FreezeEntityPosition(object, true)
+                    propData[object] = propType
+                end)
             end)
+
+            -- check if the prop was spawned successfully
+            if success then
+                DebugHandler('info', 'Spawned prop: ^2' .. propType .. '^7 in zone: ^2' .. activeZone)
+            else
+                DebugHandler('error', 'Error while spawning prop: ' .. result)
+            end
         else
             DebugHandler('error', 'The coords are nil.')
         end
     else
         DebugHandler('error', 'The drug farm is nil.')
-    end
-
-    -- debug message
-    DebugHandler('info', 'Spawned prop: ^2' .. propType .. '^7 in zone: ^2' .. activeZone)
+    end    
 end
 
 GetSpawnCoords = function(propType, zone)

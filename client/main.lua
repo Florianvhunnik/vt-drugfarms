@@ -257,13 +257,7 @@ PickupProp = function(data)
             end
 
             if drugFarm then
-                -- Calculate the current number of props and spawn new ones if needed
-                local currentPropCount = CountProps(propType)
-                while currentPropCount < drugFarm.spawnLimit do
-                    SpawnProp(propType)
-                    currentPropCount = CountProps(propType)
-                    Wait(1000)
-                end
+                SpawnProp(propType)
             end
         end
     end

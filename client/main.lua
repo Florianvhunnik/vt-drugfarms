@@ -31,6 +31,7 @@ Setup = function(action)
 
             propData, polyZones, blips, targets = {}, {}, {}, {}
         elseif action == "restart" then
+            -- idk why I added this? Should work
             Setup("stop")
             DebugHandler('info', 'Restarting...');
             Wait(1000); Setup("start")

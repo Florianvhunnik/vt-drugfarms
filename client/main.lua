@@ -81,14 +81,10 @@ Setup = function(action)
     end)
 
     if success then
-        if success then
-                message = (action == "start" and "Started") or 
-                (action == "stop" and "Stopped") or 
-                (action == "restart" and "Restarted") 
-                DebugHandler('success', message .. " resource successfully.")
-        else
-            DebugHandler('error', 'Error during action: ' .. action .. ' Error: ' .. result)
-        end        
+        message = (action == "start" and "Started") or 
+        (action == "stop" and "Stopped") or 
+        (action == "restart" and "Restarted") 
+        DebugHandler('success', message .. " resource successfully.")
     else
         DebugHandler('error', 'Error during action: ' .. action .. ' Error: ' .. result)
     end

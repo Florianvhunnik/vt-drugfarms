@@ -4,7 +4,7 @@ lua54 'yes'
 
 name 'Vectron Drugsfarms'
 description 'A fivem esx drugsfarm script'
-author '_.florian._'
+author 'Florianvhunnik'
 
 server_scripts {
     'configuration/*.lua',

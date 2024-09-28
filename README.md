@@ -30,3 +30,4 @@ This resource is licensed under the MIT license. See the `LICENSE` file for more
 
 ## Contact
 For questions or support, open an issue on the [GitHub repository](https://github.com/Florianvhunnik/vt-drugsfarms) or join the [Discord Server](https://discord.gg/P8jgthmq76).
+

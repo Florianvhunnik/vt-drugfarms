@@ -23,7 +23,7 @@
 You can setup the resource in the `configuration` folder.
 
 ## License
-This resource has it own license. See the `LICENSE` file for more information. You can **modify** the code and you can **rename** the resource but you **can't** sell or re-release it, you must keep the author’s name intact.
+This resource has its own license. See the `LICENSE` file for more information. You can **modify** and **rename** the code, but you **cannot** sell or redistribute it for commercial purposes. The original author's name (Florianvhunnik) must always be kept intact.
 
 ## Contact
 For questions or support, open an issue on the [GitHub repository](https://github.com/Florianvhunnik/vt-drugsfarms) or join the [Discord Server](https://discord.gg/P8jgthmq76).

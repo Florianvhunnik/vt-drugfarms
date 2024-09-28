@@ -6,15 +6,12 @@
 - [Overextended Target](https://github.com/overextended/ox_target)
 
 ## Features
-- **Create Unlimited Drug Farms**: Add as many drug farms as you want with unique settings for each farm.
-- **Customizable Spawn Limits**: Set the maximum number of props that can be spawned per farm.
-- **Harvest Animations**: Customize animations that players must perform when harvesting drugs.
-- **Blip Management**: Enable or disable blips for each farm and customize their appearance.
-- **Randomized Item Spawning**: Determine how many items can be obtained per harvest with minimum and maximum values.
-- **Interactive Targets**: Define interaction requirements for props, including distance and icons.
-- **Custom Zones**: Specify the specific areas where drug farms are located with custom coordinates.
-- **Debug Mode**: Activate a debug mode for tracking errors and important information during development.
-- **Multi-Item Support**: Add support for different types of drugs per farm.
+- Configurable options per farm: spawn limit, animation, blip, items received, randomized quantity
+- Target interaction options for harvesting drugs
+- Custom zones for drug spawning
+- Automatic blip placement in the middle of each zone (on/off)
+- Optimized for performance
+- Secured to prevent hackers to abuse
 
 ## Installation
 1. Download the latest version of `vt-drugsfarms` from the [GitHub repository](https://github.com/Florianvhunnik/vt-drugsfarms).
@@ -26,8 +23,7 @@
 You can setup the resource in the `configuration` folder.
 
 ## License
-This resource is licensed under the MIT license. See the `LICENSE` file for more information. You can **modify** the code and you can **rename** the resource but you **can't** sell or re-release it, you must keep the author’s name intact.
+This resource has it own license. See the `LICENSE` file for more information. You can **modify** the code and you can **rename** the resource but you **can't** sell or re-release it, you must keep the author’s name intact.
 
 ## Contact
 For questions or support, open an issue on the [GitHub repository](https://github.com/Florianvhunnik/vt-drugsfarms) or join the [Discord Server](https://discord.gg/P8jgthmq76).
-

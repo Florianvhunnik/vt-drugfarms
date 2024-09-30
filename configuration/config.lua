@@ -1,6 +1,7 @@
 Config = {}
 
 Config.debugMode = true
+Config.resourceName = GetCurrentResourceName()
 
 Config.drugFarms = {
     ["Weed Field"] = {
@@ -16,7 +17,7 @@ Config.drugFarms = {
             color = 25,
             scale = 0.8,
         },
-        items = {
+        item = {
             spawnName = "weed",
             randomized = {
                 min = 1,

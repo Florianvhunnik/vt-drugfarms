@@ -1,3 +1,8 @@
+-- Local variables
+local propData, polyZones, blips, targets = {}, {}, {}, {}
+local activeZone, drugFarm = nil, nil
+local interactActive = false
+
 -- Debug handler
 DebugHandler = function(type, message)
     if not Config.debugMode then return end
@@ -32,6 +37,20 @@ Setup = function(action)
                     CreateBlip(k, center, v.blip.sprite, v.blip.color, v.blip.scale, v.blip.label)
                 end
 
+                if not targets[v.target.propType] then
+                    exports.ox_target:addModel(v.target.propType, {
+                        {
+                            icon = v.target.icon,
+                            label = v.target.label,
+                            distance = v.target.distance,
+                            canInteract = interactActive,
+                            onSelect = function(data)
+                                PickupProp(data)
+                            end
+                        },
+                    }); targets[v.target.propType] = true
+                end
+
                 polyZones[k] = lib.zones.poly({
                     points = v.zone,
                     thickness = 2,
@@ -49,7 +68,7 @@ Setup = function(action)
     end)
 
     if success then
-        DebugHandler('success', action:capitalize() .. " resource successfully.")
+        DebugHandler('success', action .. " resource successfully.")
     else
         DebugHandler('error', 'Error during ' .. action .. ': ' .. result)
     end
@@ -85,9 +104,7 @@ RemoveBlips = function()
         end; blips = {}
     end)
 
-    if success then
-        DebugHandler("success", "All blips have been removed successfully.")
-    else
+    if not success then
         DebugHandler("error", "An error occurred while removing blips: " .. result)
     end
 end
@@ -146,6 +163,9 @@ PickupProp = function(data)
             local propType = propData[prop]
             propData[prop] = nil
             ESX.Game.DeleteObject(prop)
+
+            lib.callback.await(Config.resourceName .. ':spawnItem', false, Config.drugFarms[activeZone].item.spawnName, math.random(1, 3))
+
             SpawnProp(propType)
         end
     end

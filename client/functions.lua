@@ -164,7 +164,7 @@ PickupProp = function(data)
             propData[prop] = nil
             ESX.Game.DeleteObject(prop)
 
-            lib.callback.await(Config.resourceName .. ':spawnItem', false, Config.drugFarms[activeZone].item.spawnName, math.random(1, 3))
+            lib.callback.await(Config.resourceName .. ':spawnItem', false, activeZone)
 
             SpawnProp(propType)
         end

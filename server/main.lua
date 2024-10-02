@@ -1,5 +1,5 @@
 -- Local variables
-
+local inv = exports.ox_inventory
 
 -- Event handlers
 AddEventHandler('onResourceStop', function(resource)
@@ -16,5 +16,5 @@ lib.callback.register(Config.resourceName .. ':spawnItem', function(source, acti
     local config = Config.drugFarms[activeZone].item
     local count = math.random(config.randomized.min, config.randomized.max)
     DebugHandler('info', 'Spawning item: ' .. config.spawnName .. ' for player id: ' .. source .. ' with count: ' .. count)
-    return exports.ox_inventory:AddItem(source, config.spawnName, count)
+    return inv:AddItem(source, config.spawnName, count)
 end)

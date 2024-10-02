@@ -4,6 +4,7 @@
 - [ESX Framework Core](https://github.com/esx-framework/esx_core)
 - [Overextended Library](https://github.com/overextended/ox_lib)
 - [Overextended Target](https://github.com/overextended/ox_target)
+- [Overextended Inventory](https://github.com/overextended/ox_inventory)
 
 ## Features
 - Configurable options per farm: spawn limit, animation, blip, items received, randomized quantity

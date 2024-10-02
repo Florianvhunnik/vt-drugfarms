@@ -7,12 +7,12 @@
 - [Overextended Inventory](https://github.com/overextended/ox_inventory)
 
 ## Features
-- Configurable options per farm: spawn limit, animation, blip, items received, randomized quantity
-- Target interaction options for harvesting drugs
-- Custom zones for drug spawning
-- Automatic blip placement in the middle of each zone (on/off)
-- Optimized for performance
-- Secured to prevent hackers to abuse
+- Configurable options per farm: **spawn limit**, **animation**, **blip**, **items received**, **randomized quantity**
+- **Target interaction** options for harvesting drugs
+- **Custom zones** for drug spawning
+- Automatic **blip placement** in the middle of each zone (on/off)
+- **Optimized** for performance
+- **Secured** to prevent hackers to abuse
 
 ## Installation
 1. Download the latest version of `vt-drugsfarms` from the [GitHub repository](https://github.com/Florianvhunnik/vt-drugsfarms).
